@@ -1,60 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>电费计算</title>
+    <title>电费节省计算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        fieldset {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+        }
+        legend {
+            font-weight: bold;
+        }
+        label {
+            display: inline-block;
+            width: 200px;
+            margin-bottom: 10px;
+        }
+        input[type="number"], input[type="file"] {
+            width: 200px;
+            padding: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <h1>电费节省计算器</h1>
 
-    <!-- 手动输入表单 -->
-    <form action="/calculate" method="POST">
-        <label>旧基准电价:</label>
-        <input type="text" name="base_price_old" required><br>
+    <form id="manualForm" action="/calculate" method="POST">
+        <fieldset>
+            <legend>手动输入电费信息</legend>
 
-        <label>输配电价:</label>
-        <input type="text" name="transmission_price" required><br>
+            <label for="base_price_old">旧基准电价:</label>
+            <input type="number" id="base_price_old" name="base_price_old" step="0.001" required><br>
 
-        <label>上网线损电价:</label>
-        <input type="text" name="line_loss_price" required><br>
+            <label for="transmission_price">输配电价:</label>
+            <input type="number" id="transmission_price" name="transmission_price" step="0.001" required><br>
 
-        <label>系统运行费:</label>
-        <input type="text" name="system_operation_price" required><br>
+            <label for="line_loss_price">上网线损电价:</label>
+            <input type="number" id="line_loss_price" name="line_loss_price" step="0.001" required><br>
 
-        <label>平段用电量:</label>
-        <input type="text" name="flat_usage" required><br>
+            <label for="system_operation_price">系统运行费:</label>
+            <input type="number" id="system_operation_price" name="system_operation_price" step="0.001" required><br>
 
-        <label>谷段用电量:</label>
-        <input type="text" name="valley_usage" required><br>
+            <label for="flat_usage">平段用电量:</label>
+            <input type="number" id="flat_usage" name="flat_usage" step="0.001" required><br>
 
-        <label>峰段用电量:</label>
-        <input type="text" name="peak_usage" required><br>
+            <label for="valley_usage">谷段用电量:</label>
+            <input type="number" id="valley_usage" name="valley_usage" step="0.001" required><br>
 
-        <label>尖峰用电量:</label>
-        <input type="text" name="sharp_peak_usage" required><br>
+            <label for="peak_usage">峰段用电量:</label>
+            <input type="number" id="peak_usage" name="peak_usage" step="0.001" required><br>
 
-        <label>变压器容量:</label>
-        <input type="text" name="transformer_capacity" required><br>
+            <label for="sharp_peak_usage">尖峰用电量:</label>
+            <input type="number" id="sharp_peak_usage" name="sharp_peak_usage" step="0.001" required><br>
 
-        <label>容量电费单价:</label>
-        <input type="text" name="capacity_price_per_unit" required><br>
+            <label for="transformer_capacity">变压器容量:</label>
+            <input type="number" id="transformer_capacity" name="transformer_capacity" step="0.001" required><br>
 
-        <label>功率因数调整电费:</label>
-        <input type="text" name="power_factor_adjustment_fee" required><br>
+            <label for="capacity_price_per_unit">容量电费单价:</label>
+            <input type="number" id="capacity_price_per_unit" name="capacity_price_per_unit" step="0.001" required><br>
 
-        <label>新参考电价:</label>
-        <input type="text" name="new_reference_price" required><br>
+            <label for="power_factor_adjustment_fee">功率因数调整电费:</label>
+            <input type="number" id="power_factor_adjustment_fee" name="power_factor_adjustment_fee" step="0.001" required><br>
 
-        <button type="submit">计算</button>
+            <label for="new_reference_price">新参考电价:</label>
+            <input type="number" id="new_reference_price" name="new_reference_price" step="0.001" required><br>
+
+            <label for="fund_additional_fee">基金及附加费单价:</label>
+            <input type="number" id="fund_additional_fee" name="fund_additional_fee" step="0.001" required><br>
+
+            <button type="submit">计算</button>
+        </fieldset>
     </form>
 
-    <!-- 图片上传表单 -->
-    <h2>或上传电费单：</h2>
-    <form action="/uploads" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*"><br><br>
-        <button type="submit">上传并计算</button>
+    <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+        <fieldset>
+            <legend>上传电费单</legend>
+            <input type="file" name="file" accept="image/*" required><br><br>
+            <button type="submit">上传并计算</button>
+        </fieldset>
     </form>
+
 </body>
 </html>
-

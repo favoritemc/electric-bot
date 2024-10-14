@@ -1,15 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>计算结果</title>
+    <title>电费计算结果</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .result-box {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .saving {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <h1>计算结果</h1>
-    <p>旧总电费: {{ old_total_fee }} 元</p>
-    <p>新总电费: {{ new_total_fee }} 元</p>
-    <p>节省金额: {{ saving_amount }} 元</p>
-    <a href="/">返回主页</a>
+    <h1>电费计算结果</h1>
+    <div class="result-box">
+        <h2>总览</h2>
+        <table>
+            <tr>
+                <th>项目</th>
+                <th>旧电价</th>
+                <th>新电价</th>
+                <th>差额</th>
+            </tr>
+            <tr>
+                <td>总电费</td>
+                <td>{{ "{:.3f}".format(old_total_fee) }} 元</td>
+                <td>{{ "{:.3f}".format(new_total_fee) }} 元</td>
+                <td class="saving">{{ "{:.3f}".format(total_savings) }} 元</td>
+            </tr>
+            <tr>
+                <td>平均电价</td>
+                <td>{{ "{:.3f}".format(old_average_price) }} 元/度</td>
+                <td>{{ "{:.3f}".format(new_average_price) }} 元/度</td>
+                <td class="saving">{{ "{:.3f}".format(price_difference) }} 元/度</td>
+            </tr>
+        </table>
+        <p>总用电量: {{ "{:.3f}".format(total_usage) }} 度</p>
+        <p>节省总金额: <span class="saving">{{ "{:.3f}".format(total_savings) }}</span> 元</p>
+        <p>平均每度电便宜: <span class="saving">{{ "{:.3f}".format(price_difference) }}</span> 元</p>
+        <p>节省比例: <span class="saving">{{ "{:.2f}%".format(saving_percentage) }}</span></p>
+    </div>
+
+    <a href="/" class="btn">返回主页</a>
 </body>
 </html>
