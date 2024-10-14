@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电费计算</title>
+</head>
+<body>
+    <h1>电费节省计算器</h1>
+
+    <!-- 手动输入表单 -->
+    <form action="/calculate" method="POST">
+        <label>旧基准电价:</label>
+        <input type="text" name="base_price_old" required><br>
+
+        <label>输配电价:</label>
+        <input type="text" name="transmission_price" required><br>
+
+        <label>上网线损电价:</label>
+        <input type="text" name="line_loss_price" required><br>
+
+        <label>系统运行费:</label>
+        <input type="text" name="system_operation_price" required><br>
+
+        <label>平段用电量:</label>
+        <input type="text" name="flat_usage" required><br>
+
+        <label>谷段用电量:</label>
+        <input type="text" name="valley_usage" required><br>
+
+        <label>峰段用电量:</label>
+        <input type="text" name="peak_usage" required><br>
+
+        <label>尖峰用电量:</label>
+        <input type="text" name="sharp_peak_usage" required><br>
+
+        <label>变压器容量:</label>
+        <input type="text" name="transformer_capacity" required><br>
+
+        <label>容量电费单价:</label>
+        <input type="text" name="capacity_price_per_unit" required><br>
+
+        <label>功率因数调整电费:</label>
+        <input type="text" name="power_factor_adjustment_fee" required><br>
+
+        <label>新参考电价:</label>
+        <input type="text" name="new_reference_price" required><br>
+
+        <button type="submit">计算</button>
+    </form>
+
+    <!-- 图片上传表单 -->
+    <h2>或上传电费单：</h2>
+    <form action="/uploads" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*"><br><br>
+        <button type="submit">上传并计算</button>
+    </form>
+</body>
+</html>
+
