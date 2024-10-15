@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,96 +7,111 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
             padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        fieldset {
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            padding: 15px;
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
         }
-        legend {
-            font-weight: bold;
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            display: grid;
+            gap: 10px;
         }
         label {
-            display: inline-block;
-            width: 200px;
-            margin-bottom: 10px;
+            font-weight: bold;
         }
         input[type="number"], input[type="file"] {
-            width: 200px;
-            padding: 5px;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
-        button {
+        input[type="submit"] {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
             border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
             cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
         }
-        button:hover {
+        input[type="submit"]:hover {
             background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <h1>电费节省计算器</h1>
+    <div class="container">
+        <h1>电费节省计算器</h1>
 
-    <form id="manualForm" action="/calculate" method="POST">
-        <fieldset>
-            <legend>手动输入电费信息</legend>
-
+        <h2>手动输入电费信息</h2>
+        <form action="/calculate" method="post">
             <label for="base_price_old">旧基准电价:</label>
-            <input type="number" id="base_price_old" name="base_price_old" step="0.001" required><br>
+            <input type="number" step="any" name="base_price_old" required>
 
             <label for="transmission_price">输配电价:</label>
-            <input type="number" id="transmission_price" name="transmission_price" step="0.001" required><br>
+            <input type="number" step="any" name="transmission_price" required>
 
             <label for="line_loss_price">上网线损电价:</label>
-            <input type="number" id="line_loss_price" name="line_loss_price" step="0.001" required><br>
+            <input type="number" step="any" name="line_loss_price" required>
 
             <label for="system_operation_price">系统运行费:</label>
-            <input type="number" id="system_operation_price" name="system_operation_price" step="0.001" required><br>
+            <input type="number" step="any" name="system_operation_price" required>
 
             <label for="flat_usage">平段用电量:</label>
-            <input type="number" id="flat_usage" name="flat_usage" step="0.001" required><br>
+            <input type="number" step="any" name="flat_usage" required>
 
             <label for="valley_usage">谷段用电量:</label>
-            <input type="number" id="valley_usage" name="valley_usage" step="0.001" required><br>
+            <input type="number" step="any" name="valley_usage" required>
 
             <label for="peak_usage">峰段用电量:</label>
-            <input type="number" id="peak_usage" name="peak_usage" step="0.001" required><br>
+            <input type="number" step="any" name="peak_usage" required>
 
             <label for="sharp_peak_usage">尖峰用电量:</label>
-            <input type="number" id="sharp_peak_usage" name="sharp_peak_usage" step="0.001" required><br>
+            <input type="number" step="any" name="sharp_peak_usage" required>
 
             <label for="transformer_capacity">变压器容量:</label>
-            <input type="number" id="transformer_capacity" name="transformer_capacity" step="0.001" required><br>
+            <input type="number" step="any" name="transformer_capacity" required>
 
             <label for="capacity_price_per_unit">容量电费单价:</label>
-            <input type="number" id="capacity_price_per_unit" name="capacity_price_per_unit" step="0.001" required><br>
+            <input type="number" step="any" name="capacity_price_per_unit" required>
 
             <label for="power_factor_adjustment_fee">功率因数调整电费:</label>
-            <input type="number" id="power_factor_adjustment_fee" name="power_factor_adjustment_fee" step="0.001" required><br>
+            <input type="number" step="any" name="power_factor_adjustment_fee" required>
 
             <label for="new_reference_price">新参考电价:</label>
-            <input type="number" id="new_reference_price" name="new_reference_price" step="0.001" required><br>
+            <input type="number" step="any" name="new_reference_price" required>
 
             <label for="fund_additional_fee">基金及附加费单价:</label>
-            <input type="number" id="fund_additional_fee" name="fund_additional_fee" step="0.001" required><br>
+            <input type="number" step="any" name="fund_additional_fee" required>
 
-            <button type="submit">计算</button>
-        </fieldset>
-    </form>
+            <input type="submit" value="计算">
+        </form>
 
-    <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
-        <fieldset>
-            <legend>上传电费单</legend>
-            <input type="file" name="file" accept="image/*" required><br><br>
-            <button type="submit">上传并计算</button>
-        </fieldset>
-    </form>
-
+        <h2>上传电费单</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <input type="submit" value="上传并计算">
+        </form>
+    </div>
 </body>
 </html>
